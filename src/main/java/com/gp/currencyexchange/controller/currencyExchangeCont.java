@@ -18,9 +18,4 @@ public class currencyExchangeCont {
     public String getExchangeRate(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("amount") String amount) {
         return exchange.getExchangeRate(exchange.API_KEY, from, to, amount);
     }
-
-//    @GetMapping("/convert")
-//    public String getExchangeRate() {
-//        return exchange.getExchangeRate(Exchange.API_KEY, "EUR", "EGP", "25");
-//    }
 }
