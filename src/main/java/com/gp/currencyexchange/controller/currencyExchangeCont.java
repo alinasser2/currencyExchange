@@ -14,8 +14,14 @@ public class currencyExchangeCont {
 
     private final Exchange exchange;
 
-    @GetMapping("/convert?from={from}&to={to}&amount={amount}")
-    public String getExchangeRate(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("amount") String amount) {
-        return exchange.getExchangeRate(exchange.API_KEY, from, to, amount);
+    /* i cant access this end point because it is not free*/
+//    @GetMapping("/convert?from={from}&to={to}&amount={amount}")
+//    public String getExchangeRate(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("amount") String amount) {
+//        return exchange.getExchangeRate(exchange.API_KEY, from, to, amount);
+//    }
+
+    @GetMapping("/latest")
+    public String getLatestExchangeRate() {
+        return exchange.getLatestExchangeRate();
     }
 }
