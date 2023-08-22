@@ -8,20 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@FeignClient(value = "exchange", url = "http://api.exchangeratesapi.io/v1")
-@Headers("access_key: 6a4ba7a38cf260b1a276fc669529a954")
+@FeignClient(value = "exchange", url = "https://v6.exchangerate-api.com/v6/${access_key}")
+@Headers("access_key: ecf10bab01b34bf0de9636e1")
 public interface Exchange {
-    String API_KEY = "6a4ba7a38cf260b1a276fc669529a954";
+
+    @GetMapping("/latest/{base}")
+    String getLatestExchangeRate(@PathVariable String base);
+
+    @GetMapping("/pair/{base}/{target}")
+    String getPairExchangeRate(@PathVariable String base, @PathVariable String target);
+
+    @GetMapping("/history/{base}/{year}/{month}/{day}")
+    String getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day);
+
+    @GetMapping("/codes")
+    String getCodes();
 
 
-    /* i cant access this end point because it is not free*/
 
-//     @GetMapping("/convert?access_key={API_KEY}&from={from}&to={to}&amount={amount}")
-//     String getExchangeRate(@PathVariable("API_KEY") String apiKey,
-//                            @PathVariable("from") String from,
-//                            @PathVariable("to") String to,
-//                            @PathVariable("amount") String amount);
 
-     @GetMapping("/latest?access_key=6a4ba7a38cf260b1a276fc669529a954&format=1")
-        String getLatestExchangeRate();
 }

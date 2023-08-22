@@ -2,10 +2,8 @@ package com.gp.currencyexchange.controller;
 
 import com.gp.currencyexchange.feignClient.Exchange;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -14,14 +12,26 @@ public class currencyExchangeCont {
 
     private final Exchange exchange;
 
-    /* i cant access this end point because it is not free*/
-//    @GetMapping("/convert?from={from}&to={to}&amount={amount}")
-//    public String getExchangeRate(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("amount") String amount) {
-//        return exchange.getExchangeRate(exchange.API_KEY, from, to, amount);
-//    }
-
-    @GetMapping("/latest")
-    public String getLatestExchangeRate() {
-        return exchange.getLatestExchangeRate();
+    @GetMapping("/latest/{base}")
+    public String getLatestExchangeRate(@PathVariable String base) {
+        return exchange.getLatestExchangeRate(base);
     }
+
+    @GetMapping("/pair/{base}/{target}")
+    public String getPairExchangeRate(@PathVariable String base, @PathVariable String target) {
+        return exchange.getPairExchangeRate(base, target);
+    }
+
+    @GetMapping("/history/{base}/{year}/{month}/{day}")
+    public String getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day) {
+        return exchange.getHistoryExchangeRate(base, year, month, day);
+    }
+
+    @GetMapping("/codes")
+    public String getCodes() {
+        return exchange.getCodes();
+    }
+
+
+
 }
