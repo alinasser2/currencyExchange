@@ -21,8 +21,4 @@ public interface Exchange {
 
     @GetMapping("/codes")
     String getCodes();
-
-
-
-
 }
