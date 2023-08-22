@@ -1,6 +1,9 @@
 package com.gp.currencyexchange.feignClient;
 
 
+import com.gp.currencyexchange.dto.response.Latest;
+import com.gp.currencyexchange.dto.response.Pair;
+import com.gp.currencyexchange.dto.response.SupportedCodes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface Exchange {
 
     @GetMapping("/latest/{base}")
-    String getLatestExchangeRate(@PathVariable String base);
+    Latest getLatestExchangeRate(@PathVariable String base);
 
     @GetMapping("/pair/{base}/{target}")
-    String getPairExchangeRate(@PathVariable String base, @PathVariable String target);
+    Pair getPairExchangeRate(@PathVariable String base, @PathVariable String target);
 
     @GetMapping("/history/{base}/{year}/{month}/{day}")
-    String getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day);
+    Latest getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day);
 
     @GetMapping("/codes")
     String getCodes();
