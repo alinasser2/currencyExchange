@@ -11,6 +11,6 @@ import lombok.ToString;
 public class ImageDto {
 
     private String currency;
-    private String image;
+    private String flag;
 
 }
