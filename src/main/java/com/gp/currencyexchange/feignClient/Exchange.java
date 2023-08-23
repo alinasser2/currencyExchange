@@ -3,7 +3,6 @@ package com.gp.currencyexchange.feignClient;
 
 import com.gp.currencyexchange.dto.response.Latest;
 import com.gp.currencyexchange.dto.response.Pair;
-import com.gp.currencyexchange.dto.response.SupportedCodes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
