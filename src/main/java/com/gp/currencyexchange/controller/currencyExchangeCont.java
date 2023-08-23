@@ -29,6 +29,7 @@ public class currencyExchangeCont {
     public Pair getPairExchangeRate(@PathVariable String base, @PathVariable String target, @PathVariable String amount) {
         Pair pair =  exchange.getPairExchangeRate(base, target);
         pair.setConversion_rate((Double.parseDouble(pair.getConversion_rate()) * Double.parseDouble(amount)) + "");
+        pair.setAmount(amount);
         return pair;
     }
 
