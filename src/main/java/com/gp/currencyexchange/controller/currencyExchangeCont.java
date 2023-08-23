@@ -25,9 +25,11 @@ public class currencyExchangeCont {
         return exchange.getLatestExchangeRate(base);
     }
 
-    @GetMapping("/pair/{base}/{target}")
-    public Pair getPairExchangeRate(@PathVariable String base, @PathVariable String target) {
-        return exchange.getPairExchangeRate(base, target);
+    @GetMapping("/pair/{base}/{target}/{amount}")
+    public Pair getPairExchangeRate(@PathVariable String base, @PathVariable String target, @PathVariable String amount) {
+        Pair pair =  exchange.getPairExchangeRate(base, target);
+        pair.setConversion_rate((Double.parseDouble(pair.getConversion_rate()) * Double.parseDouble(amount)) + "");
+        return pair;
     }
 
     @GetMapping("/history/{base}/{year}/{month}/{day}")
@@ -51,7 +53,7 @@ public class currencyExchangeCont {
     }
 
     @GetMapping("/compare/{base}/{target1}/{target2}")
-    CompareDto getPairExchangeRate(@PathVariable String base, @PathVariable String target1, @PathVariable String target2) {
+    CompareDto compare(@PathVariable String base, @PathVariable String target1, @PathVariable String target2) {
         Latest latest = exchange.getLatestExchangeRate(base);
         return new CompareDto(base,target1,target2,latest.getConversion_rates().get(target1),latest.getConversion_rates().get(target2));
     }
