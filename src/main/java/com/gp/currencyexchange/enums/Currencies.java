@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum Currencies {
     USD("US"),
-    EGP("EG"),
+    EUR("EU"),
     GBP("GB"),
     JPY("JP"),
     SAR("SA"),
@@ -14,9 +14,7 @@ public enum Currencies {
     KWD("KW"),
     BHD("BH"),
     OMR("OM"),
-    QAR("QA"),
-    JOD("JO"),
-    LBP("LB");
+    QAR("QA");
 
     final String country;
     Currencies(String country) {

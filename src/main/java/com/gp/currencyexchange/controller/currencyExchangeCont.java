@@ -46,7 +46,7 @@ public class currencyExchangeCont {
         // loop over the currencies enum and create a list of ImageDto
         // each ImageDto should have the name of the currency and the url of the image
         List<ImageDto> result = new ArrayList<>();
-        Stream.of(Currencies.values()).forEach(c -> result.add(new ImageDto(c.name(), "https://flagsapi.com/"+ c.getCountry() +"/flat/64.png")));
+        Stream.of(Currencies.values()).forEach(c -> result.add(new ImageDto(c.name(), "https://www.countryflagicons.com/FLAT/64/"+ c.getCountry() +".png")));
         return result;
     }
 
