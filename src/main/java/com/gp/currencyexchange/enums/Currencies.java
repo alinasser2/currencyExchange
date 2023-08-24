@@ -1,9 +1,11 @@
 package com.gp.currencyexchange.enums;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum Currencies {
     USD("US"),
     EUR("EU"),
@@ -17,7 +19,4 @@ public enum Currencies {
     QAR("QA");
 
     final String country;
-    Currencies(String country) {
-        this.country = country;
-    }
 }

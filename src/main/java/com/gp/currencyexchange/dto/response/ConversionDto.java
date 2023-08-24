@@ -5,7 +5,7 @@ import lombok.*;
 
 @Data
 @ToString
-public class Pair {
+public class ConversionDto {
     private String base_code;
     private String target_code;
     private String amount;
