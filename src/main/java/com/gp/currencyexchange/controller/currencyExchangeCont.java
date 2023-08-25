@@ -1,12 +1,12 @@
 package com.gp.currencyexchange.controller;
 
 import com.gp.currencyexchange.dto.response.*;
+import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,5 +39,4 @@ public class currencyExchangeCont {
     @GetMapping("/compare/{base}/{target1}/{target2}")
     CompareDto compare(@PathVariable String base, @PathVariable String target1, @PathVariable String target2) {
         return exchangeService.getCompareDto(base, target1, target2);
-    }
-}
+    }}

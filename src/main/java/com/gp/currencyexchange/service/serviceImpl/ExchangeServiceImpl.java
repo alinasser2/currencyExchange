@@ -5,6 +5,7 @@ import com.gp.currencyexchange.dto.response.ImageDto;
 import com.gp.currencyexchange.dto.response.LatestDto;
 import com.gp.currencyexchange.dto.response.ConversionDto;
 import com.gp.currencyexchange.enums.Currencies;
+import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
 import com.gp.currencyexchange.feignClient.Exchange;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,17 @@ public class ExchangeServiceImpl implements ExchangeService {
         LatestDto latest = exchange.getLatestExchangeRate(base);
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
         return new CompareDto(base, target1, target2, latest.getConversion_rates().get(target1), latest.getConversion_rates().get(target2));
+    }
+
+    //check if currency in enum or not
+    public void validateCurrency(String currency) {
+        Currencies[] currencies = Currencies.values();
+        for (Currencies c : currencies) {
+            if (c.name().equals(currency)) {
+                return;
+            }
+        }
+        throw new InvalidCurrencyException("Invalid currency: " + currency);
     }
 
 }
