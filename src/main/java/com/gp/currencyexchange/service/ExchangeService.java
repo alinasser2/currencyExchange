@@ -1,9 +1,6 @@
 package com.gp.currencyexchange.service;
 
-import com.gp.currencyexchange.dto.response.CompareDto;
-import com.gp.currencyexchange.dto.response.ImageDto;
-import com.gp.currencyexchange.dto.response.LatestDto;
-import com.gp.currencyexchange.dto.response.ConversionDto;
+import com.gp.currencyexchange.dto.response.*;
 
 import java.util.List;
 
@@ -19,4 +16,5 @@ public interface ExchangeService {
 
     CompareDto getCompareDto(String base, String target1, String target2);
 
+    RatesResponseDto getRates(String base , List<String> target);
 }

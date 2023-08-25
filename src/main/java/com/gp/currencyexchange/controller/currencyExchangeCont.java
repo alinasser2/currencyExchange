@@ -39,4 +39,11 @@ public class currencyExchangeCont {
     @GetMapping("/compare/{base}/{target1}/{target2}")
     CompareDto compare(@PathVariable String base, @PathVariable String target1, @PathVariable String target2) {
         return exchangeService.getCompareDto(base, target1, target2);
-    }}
+    }
+
+    @GetMapping("/rates")
+    RatesResponseDto getRates(@RequestParam String base, @RequestParam List<String> targets) {
+        return exchangeService.getRates(base, targets);
+    }
+
+}

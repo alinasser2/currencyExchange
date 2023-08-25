@@ -1,9 +1,6 @@
 package com.gp.currencyexchange.service.serviceImpl;
 
-import com.gp.currencyexchange.dto.response.CompareDto;
-import com.gp.currencyexchange.dto.response.ImageDto;
-import com.gp.currencyexchange.dto.response.LatestDto;
-import com.gp.currencyexchange.dto.response.ConversionDto;
+import com.gp.currencyexchange.dto.response.*;
 import com.gp.currencyexchange.enums.Currencies;
 import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
 import com.gp.currencyexchange.exception.customize.NegativeAmountException;
@@ -67,5 +64,13 @@ public class ExchangeServiceImpl implements ExchangeService {
         }
         return true;
     }
+
+    public RatesResponseDto getRates(String base , List<String> target) {
+        LatestDto latest = exchange.getLatestExchangeRate(base);
+        List<Currency> list = new ArrayList<>();
+        target.forEach(t -> list.add(new Currency(t,latest.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/"+Currencies.valueOf(t).getCountry()+".png")));
+        return new RatesResponseDto(base, list);
+    }
+
 
 }
