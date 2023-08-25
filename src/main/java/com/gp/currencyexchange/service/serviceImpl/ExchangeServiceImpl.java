@@ -6,6 +6,7 @@ import com.gp.currencyexchange.dto.response.LatestDto;
 import com.gp.currencyexchange.dto.response.ConversionDto;
 import com.gp.currencyexchange.enums.Currencies;
 import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
+import com.gp.currencyexchange.exception.customize.NegativeAmountException;
 import com.gp.currencyexchange.feignClient.Exchange;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +60,12 @@ public class ExchangeServiceImpl implements ExchangeService {
             }
         }
         throw new InvalidCurrencyException("Invalid currency: " + currency);
+    }
+    public boolean exchangeCurrency(String fromCurrency, String toCurrency, double amount) {
+        if (amount < 0) {
+            throw new NegativeAmountException("Amount cannot be negative");
+        }
+        return true;
     }
 
 }

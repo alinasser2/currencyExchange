@@ -2,6 +2,7 @@ package com.gp.currencyexchange.exception;
 
 import com.gp.currencyexchange.dto.response.ErrorResponse;
 import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
+import com.gp.currencyexchange.exception.customize.NegativeAmountException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,4 +33,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidCurrencyException(InvalidCurrencyException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+    @ExceptionHandler(NegativeAmountException.class)
+    public ResponseEntity<String> handleNegativeAmountException(NegativeAmountException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
+
