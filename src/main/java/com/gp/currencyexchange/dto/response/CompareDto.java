@@ -13,6 +13,6 @@ public class CompareDto {
     private String base_code;
     private String first_target_code;
     private String second_target_code;
-    private String first_Conversion_rate;
-    private String second_Conversion_rate;
+    private String first_Conversion_value;
+    private String second_Conversion_value;
 }

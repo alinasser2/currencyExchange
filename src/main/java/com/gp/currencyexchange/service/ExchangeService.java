@@ -14,7 +14,7 @@ public interface ExchangeService {
 
     List<ImageDto> getImageDtos();
 
-    CompareDto getCompareDto(String base, String target1, String target2);
+    CompareDto getCompareDto(String base, String target1, String target2, String amount);
 
     RatesResponseDto getRates(RatesDto dto);
 }

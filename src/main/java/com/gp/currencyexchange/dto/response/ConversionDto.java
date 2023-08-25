@@ -10,4 +10,5 @@ public class ConversionDto {
     private String target_code;
     private String amount;
     private String conversion_rate;
+    private String conversion_value;
 }
