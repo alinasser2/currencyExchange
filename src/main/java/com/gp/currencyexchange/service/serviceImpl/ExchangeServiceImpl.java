@@ -19,7 +19,6 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final Exchange exchange;
 
-    @Cacheable("exchange")
     public LatestDto getLatest(String base) {
         System.out.println("getLatest");
         return exchange.getLatestExchangeRate(base);
