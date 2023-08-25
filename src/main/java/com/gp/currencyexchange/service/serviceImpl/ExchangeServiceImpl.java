@@ -5,8 +5,7 @@ import com.gp.currencyexchange.dto.response.ImageDto;
 import com.gp.currencyexchange.dto.response.LatestDto;
 import com.gp.currencyexchange.dto.response.ConversionDto;
 import com.gp.currencyexchange.enums.Currencies;
-import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
-import com.gp.currencyexchange.exception.customize.NegativeAmountException;
+import com.gp.currencyexchange.exception.customize.BadEntryException;
 import com.gp.currencyexchange.feignClient.Exchange;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +27,19 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     public ConversionDto convert(String base, String target, String amount) {
+        try {
+            Double.parseDouble( amount );
+        }
+        catch( Exception e ) {
+            throw new BadEntryException("Amount can't be a number");
+        }
+        if (Double.parseDouble(amount)<= 0) {
+            throw new BadEntryException("Amount cannot be negative");
+        }
         ConversionDto pair =  exchange.getPairExchangeRate(base, target);
         pair.setConversion_rate((Double.parseDouble(pair.getConversion_rate()) * Double.parseDouble(amount)) + "");
         pair.setAmount(amount);
+
         return pair;
     }
 
@@ -59,13 +68,7 @@ public class ExchangeServiceImpl implements ExchangeService {
                 return;
             }
         }
-        throw new InvalidCurrencyException("Invalid currency: " + currency);
-    }
-    public boolean exchangeCurrency(String fromCurrency, String toCurrency, double amount) {
-        if (amount <= 0) {
-            throw new NegativeAmountException("Amount cannot be negative");
-        }
-        return true;
+        throw new BadEntryException("Invalid currency: " + currency);
     }
 
 }
