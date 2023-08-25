@@ -1,10 +1,8 @@
 package com.gp.currencyexchange.controller;
 
 import com.gp.currencyexchange.dto.response.*;
-import com.gp.currencyexchange.exception.customize.InvalidCurrencyException;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class currencyExchangeCont {
+public class CurrencyExchangeCont {
 
     private final ExchangeService exchangeService;
 
