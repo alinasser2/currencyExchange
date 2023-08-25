@@ -62,7 +62,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         throw new InvalidCurrencyException("Invalid currency: " + currency);
     }
     public boolean exchangeCurrency(String fromCurrency, String toCurrency, double amount) {
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new NegativeAmountException("Amount cannot be negative");
         }
         return true;
