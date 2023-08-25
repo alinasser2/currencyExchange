@@ -3,13 +3,14 @@ package com.gp.currencyexchange.dto.response;
 import com.gp.currencyexchange.enums.Currencies;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
 @ToString
-public class LatestDto {
+public class LatestDto implements Serializable {
     private String base_code;
     private Map<String, String> conversion_rates;
     public LatestDto(String base_code, Map<String, String> conversion_rates) {

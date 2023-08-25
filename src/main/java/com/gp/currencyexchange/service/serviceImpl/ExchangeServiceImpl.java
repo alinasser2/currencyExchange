@@ -6,6 +6,7 @@ import com.gp.currencyexchange.exception.customize.BadEntryException;
 import com.gp.currencyexchange.feignClient.Exchange;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,12 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final Exchange exchange;
 
+    @Cacheable("exchange")
     public LatestDto getLatest(String base) {
+        System.out.println("getLatest");
         return exchange.getLatestExchangeRate(base);
     }
+
 
     public ConversionDto convert(String base, String target, String amount) {
         try {
