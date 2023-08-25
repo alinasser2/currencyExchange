@@ -42,8 +42,8 @@ public class currencyExchangeCont {
     }
 
     @GetMapping("/rates")
-    RatesResponseDto getRates(@RequestParam String base, @RequestParam List<String> targets) {
-        return exchangeService.getRates(base, targets);
+    RatesResponseDto getRates(RatesDto dto) {
+        return exchangeService.getRates(dto);
     }
 
 }

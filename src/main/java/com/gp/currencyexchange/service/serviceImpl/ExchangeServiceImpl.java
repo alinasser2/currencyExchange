@@ -65,12 +65,14 @@ public class ExchangeServiceImpl implements ExchangeService {
         return true;
     }
 
-    public RatesResponseDto getRates(String base , List<String> target) {
-        LatestDto latest = exchange.getLatestExchangeRate(base);
+
+    public RatesResponseDto getRates(RatesDto dto) {
+        LatestDto latest = exchange.getLatestExchangeRate(dto.getBase_code());
         List<Currency> list = new ArrayList<>();
-        target.forEach(t -> list.add(new Currency(t,latest.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/"+Currencies.valueOf(t).getCountry()+".png")));
-        return new RatesResponseDto(base, list);
+        dto.getTargets().forEach(t -> list.add(new Currency(t,latest.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/"+Currencies.valueOf(t).getCountry()+".png")));
+        return new RatesResponseDto(dto.getBase_code(), list);
     }
+
 
 
 }
