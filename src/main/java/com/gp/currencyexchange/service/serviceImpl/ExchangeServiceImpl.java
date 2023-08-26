@@ -28,13 +28,16 @@ public class ExchangeServiceImpl implements ExchangeService {
         }
 
     public ConversionDto convert(String base, String target, String amount) {
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         try {
             Double.parseDouble(amount);
         } catch (Exception e) {
             throw new BadEntryException("Amount must be a number");
         }
         if (Double.parseDouble(amount) <= 0) {
-            throw new BadEntryException("Amount cannot be negative");
+            throw new BadEntryException("Amount must be positive number");
         }
         ConversionDto pair = exchange.getPairExchangeRate(base, target);
         pair.setAmount(amount);
@@ -44,6 +47,9 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     public LatestDto getHistoricalExchangeRate(String base, String year, String month, String day) {
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         return exchange.getHistoryExchangeRate(base, year, month, day);
     }
 
@@ -55,6 +61,17 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     public CompareDto getCompareDto(String base, String target1, String target2, String amount) {
+        try {
+            Double.parseDouble(amount);
+        } catch (Exception e) {
+            throw new BadEntryException("Amount must be a number");
+        }
+        if (Double.parseDouble(amount) <= 0) {
+            throw new BadEntryException("Amount must be positive number");
+        }
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         LatestDto latest = exchange.getLatestExchangeRate(base);
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
         return new CompareDto(base, target1, target2, (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount) + ""));
