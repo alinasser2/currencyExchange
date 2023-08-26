@@ -20,24 +20,35 @@ public class ExchangeServiceImpl implements ExchangeService {
     private final Exchange exchange;
 
     public AllCurrExchangeDto getLatest(String base) {
+        //check if currency in enum or not
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
+        System.out.println("getLatest");
         return exchange.getLatestExchangeRate(base);
     }
 
 
     public OneCurrExchangeDto convert(String base, String target, String amount) {
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         try {
             Double.parseDouble(amount);
         } catch (Exception e) {
-            throw new BadEntryException("Amount can't be a number");
+            throw new BadEntryException("Amount must be a number");
         }
         if (Double.parseDouble(amount) <= 0) {
-            throw new BadEntryException("Amount cannot be negative");
+            throw new BadEntryException("Amount must be positive");
         }
         PairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
         return new OneCurrExchangeDto(conversionData.getConversion_rate(),(Double.parseDouble(conversionData.getConversion_rate()) * Double.parseDouble(amount)) + "");
     }
 
     public AllCurrExchangeDto getHistoricalExchangeRate(String base, String year, String month, String day) {
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         return exchange.getHistoryExchangeRate(base, year, month, day);
     }
 
@@ -49,22 +60,23 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     public TwoCurrExchangeDto getCompareDto(String base, String target1, String target2, String amount) {
+        try {
+            Double.parseDouble(amount);
+        } catch (Exception e) {
+            throw new BadEntryException("Amount must be a number");
+        }
+        if (Double.parseDouble(amount) <= 0) {
+            throw new BadEntryException("Amount must be positive number");
+        }
+        if (!Currencies.contains(base)) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
         AllCurrExchangeDto latestCurrenciesValues = exchange.getLatestExchangeRate(base);
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
         return new TwoCurrExchangeDto((Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target2)) * Double.parseDouble(amount) + ""));
     }
 
     //check if currency in enum or not
-    public void validateCurrency(String currency) {
-        Currencies[] currencies = Currencies.values();
-        for (Currencies c : currencies) {
-            if (c.name().equals(currency)) {
-                return;
-            }
-        }
-        throw new BadEntryException("Invalid currency: " + currency);
-    }
-
 
     public ManyCurrExchangeResDto getRates(ManyCurrExchangeReqDto dto) {
         AllCurrExchangeDto latest = exchange.getLatestExchangeRate(dto.getBase_code());
