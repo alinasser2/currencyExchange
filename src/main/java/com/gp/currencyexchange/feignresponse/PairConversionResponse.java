@@ -9,6 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class pairConversionResponse {
+public class PairConversionResponse {
+    private String base_code;
+    private String target_code;
     private String conversion_rate;
 }

@@ -2,7 +2,7 @@ package com.gp.currencyexchange.feignClient;
 
 
 import com.gp.currencyexchange.dto.AllCurrExchangeDto;
-import com.gp.currencyexchange.feignresponse.pairConversionResponse;
+import com.gp.currencyexchange.feignresponse.PairConversionResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public interface Exchange {
     AllCurrExchangeDto getLatestExchangeRate(@PathVariable String base);
 
     @GetMapping("/pair/{base}/{target}")
-    pairConversionResponse getPairExchangeRate(@PathVariable String base, @PathVariable String target);
+    PairConversionResponse getPairExchangeRate(@PathVariable String base, @PathVariable String target);
 
     @GetMapping("/history/{base}/{year}/{month}/{day}")
     AllCurrExchangeDto getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day);

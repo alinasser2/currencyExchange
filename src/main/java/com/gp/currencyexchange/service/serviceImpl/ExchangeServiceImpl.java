@@ -4,8 +4,7 @@ import com.gp.currencyexchange.dto.*;
 import com.gp.currencyexchange.enums.Currencies;
 import com.gp.currencyexchange.exception.customize.BadEntryException;
 import com.gp.currencyexchange.feignClient.Exchange;
-import com.gp.currencyexchange.dto.ImageDto;
-import com.gp.currencyexchange.feignresponse.pairConversionResponse;
+import com.gp.currencyexchange.feignresponse.PairConversionResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final Exchange exchange;
 
-
-
-//    @Cacheable("exchange")
     public AllCurrExchangeDto getLatest(String base) {
-
         return exchange.getLatestExchangeRate(base);
     }
 
@@ -38,7 +33,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         if (Double.parseDouble(amount) <= 0) {
             throw new BadEntryException("Amount cannot be negative");
         }
-        pairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
+        PairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
         return new OneCurrExchangeDto(conversionData.getConversion_rate(),(Double.parseDouble(conversionData.getConversion_rate()) * Double.parseDouble(amount)) + "");
     }
 
@@ -72,9 +67,9 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
     public ManyCurrExchangeResDto getRates(ManyCurrExchangeReqDto dto) {
-        AllCurrExchangeDto latestCurrenciesValues = exchange.getLatestExchangeRate(dto.getBase_code());
+        AllCurrExchangeDto latest = exchange.getLatestExchangeRate(dto.getBase_code());
         List<CurrencyDto> list = new ArrayList<>();
-        dto.getTargets().forEach(t -> list.add(new CurrencyDto(t, latestCurrenciesValues.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
+        dto.getTargets().forEach(t -> list.add(new CurrencyDto(t, latest.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
         return new ManyCurrExchangeResDto(dto.getBase_code(), list);
     }
 
