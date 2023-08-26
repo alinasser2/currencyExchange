@@ -40,10 +40,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     public AllCurrExchangeDto getHistoricalExchangeRate(String base, String year, String month, String day) {
-        if (!Currencies.contains(base)) {
-            throw new BadEntryException("Invalid currency: " + base);
-        }
-        // check if date is valid
+        validator.validateCurrency(base);
         validator.validateDate(year, month, day);
         return exchange.getHistoryExchangeRate(base, year, month, day);
     }
