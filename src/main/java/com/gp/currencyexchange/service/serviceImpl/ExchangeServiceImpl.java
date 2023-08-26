@@ -20,16 +20,12 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     public LatestDto getLatest(String base) {
         //check if currency in enum or not
-        try {
-            Currencies.valueOf(base);
-            System.out.println("getLatest");
-            return exchange.getLatestExchangeRate(base);
-        } catch (IllegalArgumentException e) {
+        if (!Currencies.contains(base)) {
             throw new BadEntryException("Invalid currency: " + base);
         }
-
-    }
-
+            System.out.println("getLatest");
+            return exchange.getLatestExchangeRate(base);
+        }
 
     public ConversionDto convert(String base, String target, String amount) {
         try {
