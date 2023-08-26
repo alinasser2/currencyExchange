@@ -1,12 +1,13 @@
 package com.gp.currencyexchange.service.serviceImpl;
 
-import com.gp.currencyexchange.dto.response.*;
+import com.gp.currencyexchange.dto.*;
 import com.gp.currencyexchange.enums.Currencies;
 import com.gp.currencyexchange.exception.customize.BadEntryException;
 import com.gp.currencyexchange.feignClient.Exchange;
+import com.gp.currencyexchange.dto.ImageDto;
+import com.gp.currencyexchange.feignresponse.pairConversionResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,16 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final Exchange exchange;
 
-    public LatestDto getLatest(String base) {
-        System.out.println("getLatest");
+
+
+//    @Cacheable("exchange")
+    public AllCurrExchangeDto getLatest(String base) {
+
         return exchange.getLatestExchangeRate(base);
     }
 
 
-    public ConversionDto convert(String base, String target, String amount) {
+    public OneCurrExchangeDto convert(String base, String target, String amount) {
         try {
             Double.parseDouble(amount);
         } catch (Exception e) {
@@ -34,14 +38,11 @@ public class ExchangeServiceImpl implements ExchangeService {
         if (Double.parseDouble(amount) <= 0) {
             throw new BadEntryException("Amount cannot be negative");
         }
-        ConversionDto pair = exchange.getPairExchangeRate(base, target);
-        pair.setAmount(amount);
-        System.out.println(pair);
-        pair.setConversion_value((Double.parseDouble(pair.getConversion_rate()) * Double.parseDouble(amount)) + "");
-        return pair;
+        pairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
+        return new OneCurrExchangeDto(conversionData.getConversion_rate(),(Double.parseDouble(conversionData.getConversion_rate()) * Double.parseDouble(amount)) + "");
     }
 
-    public LatestDto getHistoricalExchangeRate(String base, String year, String month, String day) {
+    public AllCurrExchangeDto getHistoricalExchangeRate(String base, String year, String month, String day) {
         return exchange.getHistoryExchangeRate(base, year, month, day);
     }
 
@@ -52,10 +53,10 @@ public class ExchangeServiceImpl implements ExchangeService {
         return result;
     }
 
-    public CompareDto getCompareDto(String base, String target1, String target2, String amount) {
-        LatestDto latest = exchange.getLatestExchangeRate(base);
+    public TwoCurrExchangeDto getCompareDto(String base, String target1, String target2, String amount) {
+        AllCurrExchangeDto latestCurrenciesValues = exchange.getLatestExchangeRate(base);
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
-        return new CompareDto(base, target1, target2, (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount) + ""));
+        return new TwoCurrExchangeDto((Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount) + ""));
     }
 
     //check if currency in enum or not
@@ -70,11 +71,11 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
 
-    public RatesResponseDto getRates(RatesDto dto) {
-        LatestDto latest = exchange.getLatestExchangeRate(dto.getBase_code());
-        List<Currency> list = new ArrayList<>();
-        dto.getTargets().forEach(t -> list.add(new Currency(t, latest.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
-        return new RatesResponseDto(dto.getBase_code(), list);
+    public ManyCurrExchangeResDto getRates(ManyCurrExchangeReqDto dto) {
+        AllCurrExchangeDto latestCurrenciesValues = exchange.getLatestExchangeRate(dto.getBase_code());
+        List<CurrencyDto> list = new ArrayList<>();
+        dto.getTargets().forEach(t -> list.add(new CurrencyDto(t, latestCurrenciesValues.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
+        return new ManyCurrExchangeResDto(dto.getBase_code(), list);
     }
 
 

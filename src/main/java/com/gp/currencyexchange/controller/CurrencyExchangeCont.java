@@ -1,6 +1,7 @@
 package com.gp.currencyexchange.controller;
 
-import com.gp.currencyexchange.dto.response.*;
+import com.gp.currencyexchange.dto.*;
+import com.gp.currencyexchange.dto.ImageDto;
 import com.gp.currencyexchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,32 +17,32 @@ public class CurrencyExchangeCont {
     private final ExchangeService exchangeService;
 
     @GetMapping("/latest/{base}")
-    public ResponseEntity<LatestDto> getLatestExchangeRate(@PathVariable String base) {
+    public ResponseEntity<AllCurrExchangeDto> getLatestExchangeRates(@PathVariable String base) {
         return ResponseEntity.ok(exchangeService.getLatest(base));
     }
 
     @GetMapping("/pair/{base}/{target}/{amount}")
-    public ResponseEntity<ConversionDto> getPairExchangeRate(@PathVariable String base, @PathVariable String target, @PathVariable String amount) {
+    public ResponseEntity<OneCurrExchangeDto> convertCurrency(@PathVariable String base, @PathVariable String target, @PathVariable String amount) {
         return ResponseEntity.ok(exchangeService.convert(base, target, amount));
     }
 
     @GetMapping("/history/{base}/{year}/{month}/{day}")
-    public ResponseEntity<LatestDto> getHistoryExchangeRate(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day) {
+    public ResponseEntity<AllCurrExchangeDto> getHistoricalExchangeRates(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day) {
         return ResponseEntity.ok(exchangeService.getHistoricalExchangeRate(base, year, month, day));
     }
 
     @GetMapping("/images")
-    public ResponseEntity<List<ImageDto>> getImages() {
+    public ResponseEntity<List<ImageDto>> getCurrenciesFlags() {
         return ResponseEntity.ok(exchangeService.getImageDtos());
     }
 
     @GetMapping("/compare/{base}/{first_target}/{second_target}/{amount}")
-    ResponseEntity<CompareDto> compare(@PathVariable String base, @PathVariable String first_target, @PathVariable String second_target, @PathVariable String amount) {
+    ResponseEntity<TwoCurrExchangeDto> compareTwoCurrencies(@PathVariable String base, @PathVariable String first_target, @PathVariable String second_target, @PathVariable String amount) {
         return ResponseEntity.ok(exchangeService.getCompareDto(base, first_target, second_target, amount));
     }
 
     @GetMapping("/rates")
-    ResponseEntity<RatesResponseDto> getRates(RatesDto dto) {
+    ResponseEntity<ManyCurrExchangeResDto> compareManyCurrencies(ManyCurrExchangeReqDto dto) {
         return ResponseEntity.ok(exchangeService.getRates(dto));
     }
 

@@ -1,20 +1,21 @@
 package com.gp.currencyexchange.service;
 
-import com.gp.currencyexchange.dto.response.*;
+import com.gp.currencyexchange.dto.*;
+import com.gp.currencyexchange.dto.ImageDto;
 
 import java.util.List;
 
 public interface ExchangeService {
 
-    LatestDto getLatest(String base);
+    AllCurrExchangeDto getLatest(String base);
 
-    ConversionDto convert(String base, String target, String amount);
+    OneCurrExchangeDto convert(String base, String target, String amount);
 
-    LatestDto getHistoricalExchangeRate(String base, String year, String month, String day);
+    AllCurrExchangeDto getHistoricalExchangeRate(String base, String year, String month, String day);
 
     List<ImageDto> getImageDtos();
 
-    CompareDto getCompareDto(String base, String target1, String target2, String amount);
+    TwoCurrExchangeDto getCompareDto(String base, String target1, String target2, String amount);
 
-    RatesResponseDto getRates(RatesDto dto);
+    ManyCurrExchangeResDto getRates(ManyCurrExchangeReqDto dto);
 }

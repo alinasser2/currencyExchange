@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableFeignClients
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")
 @EnableCaching
 public class CurrencyExchangeApplication {
     public static void main(String[] args) {
