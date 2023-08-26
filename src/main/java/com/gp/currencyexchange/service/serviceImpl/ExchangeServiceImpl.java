@@ -51,7 +51,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     public TwoCurrExchangeDto getCompareDto(String base, String target1, String target2, String amount) {
         AllCurrExchangeDto latestCurrenciesValues = exchange.getLatestExchangeRate(base);
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
-        return new TwoCurrExchangeDto((Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount) + ""));
+        return new TwoCurrExchangeDto((Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target2)) * Double.parseDouble(amount) + ""));
     }
 
     //check if currency in enum or not
