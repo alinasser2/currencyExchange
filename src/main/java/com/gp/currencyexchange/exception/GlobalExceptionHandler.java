@@ -28,13 +28,8 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ex.getStatusCode().value(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, ex.getStatusCode());
     }
-//    @ExceptionHandler(BadEntryException.class)
-//    public ResponseEntity<String> handleInvalidCurrencyException(BadEntryException ex) {
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-//    }
-
     @ExceptionHandler(BadEntryException.class)
-    public ResponseEntity<String> handleNegativeAmountException(BadEntryException ex) {
+    public ResponseEntity<String> handleBadEntryException(BadEntryException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }

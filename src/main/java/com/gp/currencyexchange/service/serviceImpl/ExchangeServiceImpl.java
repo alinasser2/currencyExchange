@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-
 @RequiredArgsConstructor
 @Service
 public class ExchangeServiceImpl implements ExchangeService {
@@ -20,8 +19,15 @@ public class ExchangeServiceImpl implements ExchangeService {
     private final Exchange exchange;
 
     public LatestDto getLatest(String base) {
-        System.out.println("getLatest");
-        return exchange.getLatestExchangeRate(base);
+        //check if currency in enum or not
+        try {
+            Currencies.valueOf(base);
+            System.out.println("getLatest");
+            return exchange.getLatestExchangeRate(base);
+        } catch (IllegalArgumentException e) {
+            throw new BadEntryException("Invalid currency: " + base);
+        }
+
     }
 
 
@@ -29,7 +35,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         try {
             Double.parseDouble(amount);
         } catch (Exception e) {
-            throw new BadEntryException("Amount can't be a number");
+            throw new BadEntryException("Amount must be a number");
         }
         if (Double.parseDouble(amount) <= 0) {
             throw new BadEntryException("Amount cannot be negative");
@@ -57,18 +63,6 @@ public class ExchangeServiceImpl implements ExchangeService {
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
         return new CompareDto(base, target1, target2, (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latest.getConversion_rates().get(target1)) * Double.parseDouble(amount) + ""));
     }
-
-    //check if currency in enum or not
-    public void validateCurrency(String currency) {
-        Currencies[] currencies = Currencies.values();
-        for (Currencies c : currencies) {
-            if (c.name().equals(currency)) {
-                return;
-            }
-        }
-        throw new BadEntryException("Invalid currency: " + currency);
-    }
-
 
     public RatesResponseDto getRates(RatesDto dto) {
         LatestDto latest = exchange.getLatestExchangeRate(dto.getBase_code());
