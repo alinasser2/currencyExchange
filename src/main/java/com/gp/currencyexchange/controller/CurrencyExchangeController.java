@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class CurrencyExchangeCont {
+public class CurrencyExchangeController {
 
     @Autowired
     private ExchangeService exchangeService;

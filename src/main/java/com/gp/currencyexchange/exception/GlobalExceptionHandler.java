@@ -1,11 +1,12 @@
 package com.gp.currencyexchange.exception;
 
+import com.gp.currencyexchange.exception.customize.CustomException;
 import com.gp.currencyexchange.response.ErrorResponse;
-import com.gp.currencyexchange.exception.customize.BadEntryException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -28,10 +29,14 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ex.getStatusCode().value(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, ex.getStatusCode());
     }
-    @ExceptionHandler(BadEntryException.class)
-    public ResponseEntity<String> handleBadEntryException(BadEntryException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+
+
+    @ExceptionHandler(CustomException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public com.gp.currencyexchange.enums.ErrorResponse handleCustomException(CustomException ex) {
+        return ex.getErrorResponse();
     }
+
 
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<ErrorResponse> handleNumberFormatException(NumberFormatException ex) {
