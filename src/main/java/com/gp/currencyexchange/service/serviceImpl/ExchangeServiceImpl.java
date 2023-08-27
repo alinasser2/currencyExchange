@@ -32,7 +32,6 @@ public class ExchangeServiceImpl implements ExchangeService {
     public CurrenciesResponse getLatest(String base) {
         //check if currency in enum or not
         validator.validateCurrency(base);
-        System.out.println("getLatest");
         return exchange.getLatestExchangeRate(base);
     }
 
@@ -40,8 +39,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Cacheable(cacheNames = "CurrenciesExchange")
     public CurrencyConversionResponse convert(String base, String target, String amount) {
         validator.validateAmount(amount);
-        validator.validateCurrency(base);
-        validator.validateCurrency(target);
+        validator.validateCurrency(base, target);
         PairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
         return new CurrencyConversionResponse(conversionData.getConversion_rate(), (Double.parseDouble(conversionData.getConversion_rate()) * Double.parseDouble(amount)) + "");
     }
@@ -65,9 +63,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Cacheable(cacheNames = "CurrenciesExchange")
     public CurrencyComparisonResponse getCompareDto(String base, String target1, String target2, String amount) {
         validator.validateAmount(amount);
-        validator.validateCurrency(base);
-        validator.validateCurrency(target1);
-        validator.validateCurrency(target2);
+        validator.validateCurrency(base, target1, target2);
 
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
         CurrenciesResponse latestCurrenciesValues = exchange.getLatestExchangeRate(base);

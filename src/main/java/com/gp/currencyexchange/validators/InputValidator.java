@@ -26,9 +26,11 @@ public class InputValidator  {
         }
     }
 
-    public void validateCurrency(String currency) {
-        if (!Currencies.contains(currency)){
-            throw new BadEntryException("Invalid currency: " + currency);
+    public void validateCurrency(String... currencies) {
+        for (String currency : currencies) {
+            if (!Currencies.contains(currency)) {
+                throw new BadEntryException("Invalid currency: " + currency);
+            }
         }
     }
 }
