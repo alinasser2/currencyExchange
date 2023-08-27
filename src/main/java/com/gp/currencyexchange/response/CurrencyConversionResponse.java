@@ -3,12 +3,14 @@ package com.gp.currencyexchange.response;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrencyConversionResponse {
+public class CurrencyConversionResponse implements Serializable {
 //    private String base_code;
 //    private String target_code;
 //    private String amount;
