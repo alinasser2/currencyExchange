@@ -1,23 +1,23 @@
-version: '3.8'
-services:
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - '6379:6379'
-    volumes:
-      - cache:/data
-
-  my-application:
-    container_name: currencyConverter2
-    image: springboot-app
-    restart: on-failure
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - cache
-
-volumes:
-  cache:
-    driver: local
+#version: '3.8'
+#services:
+#  cache:
+#    image: redis:6.2-alpine
+#    restart: always
+#    ports:
+#      - '6379:6379'
+#    volumes:
+#      - cache:/data
+#
+#  my-application:
+#    container_name: currencyConverter2
+#    image: springboot-app
+#    restart: on-failure
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - cache
+#
+#volumes:
+#  cache:
+#    driver: local

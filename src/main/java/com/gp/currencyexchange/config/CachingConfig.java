@@ -1,23 +1,23 @@
-// package com.gp.currencyexchange.config;
+ package com.gp.currencyexchange.config;
 
-// import org.springframework.cache.CacheManager;
-// import org.springframework.cache.annotation.EnableCaching;
-// import org.springframework.cache.concurrent.ConcurrentMapCache;
-// import org.springframework.cache.support.SimpleCacheManager;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
+ import org.springframework.cache.CacheManager;
+ import org.springframework.cache.annotation.EnableCaching;
+ import org.springframework.cache.concurrent.ConcurrentMapCache;
+ import org.springframework.cache.support.SimpleCacheManager;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
 
-// import java.util.Arrays;
+ import java.util.Arrays;
 
-// @Configuration
-// @EnableCaching
-// public class CachingConfig {
+ @Configuration
+ @EnableCaching
+ public class CachingConfig {
 
-//     @Bean
-//     public CacheManager cacheManager() {
-//         SimpleCacheManager cacheManager = new SimpleCacheManager();
-//         ConcurrentMapCache currenciesCache = new ConcurrentMapCache("CurrenciesExchange");
-//         cacheManager.setCaches(Arrays.asList(currenciesCache));
-//         return cacheManager;
-//     }
-// }
+     @Bean
+     public CacheManager cacheManager() {
+         SimpleCacheManager cacheManager = new SimpleCacheManager();
+         ConcurrentMapCache currenciesCache = new ConcurrentMapCache("CurrenciesExchange");
+         cacheManager.setCaches(Arrays.asList(currenciesCache));
+         return cacheManager;
+     }
+ }
