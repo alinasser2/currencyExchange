@@ -1,5 +1,9 @@
 package com.gp.currencyexchange.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
 public enum ErrorResponse {
     INVALID_DATE("Invalid date"),
     INVALID_AMOUNT("Amount must be positive number."),
@@ -9,10 +13,6 @@ public enum ErrorResponse {
 
     ErrorResponse(String message) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 }

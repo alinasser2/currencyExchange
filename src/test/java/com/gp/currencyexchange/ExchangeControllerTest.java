@@ -1,7 +1,7 @@
 package com.gp.currencyexchange;
 
-import com.gp.currencyexchange.controller.CurrencyExchangeCont;
-import com.gp.currencyexchange.enums.Currencies;
+
+import com.gp.currencyexchange.controller.CurrencyExchangeController;
 import com.gp.currencyexchange.response.CurrencyPreferencesResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import org.junit.jupiter.api.Test;
@@ -15,18 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static javax.print.attribute.standard.MediaSizeName.C;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -40,7 +33,7 @@ public class ExchangeControllerTest {
     private ExchangeService exchangeService;
 
     @InjectMocks
-    private CurrencyExchangeCont currencyController;
+    private CurrencyExchangeController currencyController;
 
 
     @Test
