@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.dto;
+package com.gp.currencyexchange.response;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class TwoCurrExchangeDto {
+public class CurrencyComparisonResponse {
 //    private String base_code;
 //    private String first_target_code;
 //    private String second_target_code;

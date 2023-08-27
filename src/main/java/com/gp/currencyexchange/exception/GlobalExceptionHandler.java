@@ -1,6 +1,6 @@
 package com.gp.currencyexchange.exception;
 
-import com.gp.currencyexchange.dto.ErrorResponse;
+import com.gp.currencyexchange.response.ErrorResponse;
 import com.gp.currencyexchange.exception.customize.BadEntryException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

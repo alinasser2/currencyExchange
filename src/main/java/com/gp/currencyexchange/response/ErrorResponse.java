@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.dto;
+package com.gp.currencyexchange.response;
 import lombok.Data;
 import lombok.Getter;
 

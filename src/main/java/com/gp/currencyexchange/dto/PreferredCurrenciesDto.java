@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ManyCurrExchangeResDto {
-    private String base_currency;
-    private List<CurrencyDto> targets;
+public class PreferredCurrenciesDto {
+    private String base_code;
+    private List<String> targets;
 }

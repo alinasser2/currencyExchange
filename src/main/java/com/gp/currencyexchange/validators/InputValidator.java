@@ -26,9 +26,9 @@ public class InputValidator  {
         }
     }
 
-    public void validateCurrency(String base) {
-        if (!Currencies.contains(base.toUpperCase())) {
-            throw new BadEntryException("Invalid currency: " + base);
+    public void validateCurrency(String currency) {
+        if (!Currencies.contains(currency)){
+            throw new BadEntryException("Invalid currency: " + currency);
         }
     }
 }

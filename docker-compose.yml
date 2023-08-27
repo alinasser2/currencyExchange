@@ -1,10 +1,12 @@
-version: '3'
+version: '3.8'
 services:
-  redis-server:
-    container_name: redis2
-    image: redis/redis-stack
+  cache:
+    image: redis:6.2-alpine
+    restart: always
     ports:
-      - "6379:6379"
+      - '6379:6379'
+    volumes:
+      - cache:/data
 
   my-application:
     container_name: currencyConverter2
@@ -14,10 +16,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - redis-server
-    networks:
-      - my-network
-
-networks:
-  my-network:
-    driver: bridge
+      - cache
+volumes:
+  cache:
+    driver: local

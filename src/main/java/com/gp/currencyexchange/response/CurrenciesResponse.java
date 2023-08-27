@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.dto;
+package com.gp.currencyexchange.response;
 
 import com.gp.currencyexchange.enums.Currencies;
 import lombok.*;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 @ToString
 @NoArgsConstructor
 //latest API
-public class AllCurrExchangeDto implements Serializable {
+public class CurrenciesResponse implements Serializable {
     private String base_code;
     private Map<String, String> conversion_rates;
 
-    public AllCurrExchangeDto(String base_code, Map<String, String> conversion_rates) {
+    public CurrenciesResponse(String base_code, Map<String, String> conversion_rates) {
         setBase_code(base_code);
         setConversion_rates(conversion_rates);
     }
