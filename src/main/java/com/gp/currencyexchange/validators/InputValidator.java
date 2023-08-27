@@ -5,24 +5,16 @@ import com.gp.currencyexchange.exception.customize.BadEntryException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InputValidator  {
+public class InputValidator {
     public void validateDate(String year, String month, String day) {
-        try {
-            if (year.length() != 4 || month.length() != 2 || day.length() != 2 || Integer.parseInt(month) > 12 || Integer.parseInt(month) < 1 || Integer.parseInt(day) > 31 || Integer.parseInt(day) < 1) {
-                throw new BadEntryException("Invalid date");
-            }
-        } catch (Exception e) {
+        if (year.length() != 4 || Integer.parseInt(month) > 12 || Integer.parseInt(month) < 1 || Integer.parseInt(day) > 31 || Integer.parseInt(day) < 1) {
             throw new BadEntryException("Invalid date");
         }
     }
 
     public void validateAmount(String amount) {
-        try {
-            if (Double.parseDouble(amount) <= 0) {
-                throw new BadEntryException("Amount must be positive number.");
-            }
-        } catch (Exception e) {
-            throw new BadEntryException("Amount must be a number.");
+        if (Double.parseDouble(amount) <= 0) {
+            throw new BadEntryException("Amount must be positive number.");
         }
     }
 

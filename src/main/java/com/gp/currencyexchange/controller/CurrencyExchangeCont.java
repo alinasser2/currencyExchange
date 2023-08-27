@@ -1,24 +1,23 @@
 package com.gp.currencyexchange.controller;
 
-import com.gp.currencyexchange.dto.*;
 import com.gp.currencyexchange.dto.ImageDto;
 import com.gp.currencyexchange.response.CurrenciesResponse;
 import com.gp.currencyexchange.response.CurrencyPreferencesResponse;
 import com.gp.currencyexchange.response.CurrencyConversionResponse;
 import com.gp.currencyexchange.response.CurrencyComparisonResponse;
 import com.gp.currencyexchange.service.ExchangeService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CurrencyExchangeCont {
 
-    private final ExchangeService exchangeService;
+    @Autowired
+    private ExchangeService exchangeService;
 
     @GetMapping("/latest/{base}")
     public ResponseEntity<CurrenciesResponse> getLatestExchangeRates(@PathVariable String base) {

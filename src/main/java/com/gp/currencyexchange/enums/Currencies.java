@@ -16,7 +16,11 @@ public enum Currencies {
     KWD("KW"),
     BHD("BH"),
     OMR("OM"),
-    QAR("QA");
+    QAR("QA"),
+    EGP("EG");
+
+    final String country;
+
     public static boolean contains(String currency) {
         for (Currencies c : Currencies.values()) {
             if (c.name().equals(currency)) {
@@ -26,5 +30,4 @@ public enum Currencies {
         return false;
     }
 
-    final String country;
 }

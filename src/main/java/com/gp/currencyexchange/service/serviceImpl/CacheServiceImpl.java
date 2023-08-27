@@ -16,7 +16,6 @@ public class CacheServiceImpl implements CacheService {
     private CacheManager cacheManager;
     @Autowired
     private ExchangeService exchangeService;
-    // define logger variable
     private static final Logger log = LoggerFactory.getLogger(CacheServiceImpl.class);
 
 
