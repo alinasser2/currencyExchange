@@ -33,8 +33,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public com.gp.currencyexchange.enums.ErrorResponse handleCustomException(CustomException ex) {
-        return ex.getErrorResponse();
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
 

@@ -30,7 +30,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     private InputValidator validator;
 
     @Cacheable(cacheNames = "CurrenciesExchange")
-    public CurrenciesResponse getLatest(String base) throws CustomException {
+    public CurrenciesResponse getLatest(String base)  {
         //check if currency in enum or not
         validator.validateCurrency(base);
         return exchange.getLatestExchangeRate(base);
@@ -38,7 +38,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
     @Cacheable(cacheNames = "CurrenciesExchange")
-    public CurrencyConversionResponse convert(String base, String target, String amount) throws CustomException {
+    public CurrencyConversionResponse convert(String base, String target, String amount)  {
         validator.validateAmount(amount);
         validator.validateCurrency(base, target);
         PairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
@@ -46,7 +46,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
-    public CurrenciesResponse getHistoricalExchangeRate(String base, String year, String month, String day) throws CustomException {
+    public CurrenciesResponse getHistoricalExchangeRate(String base, String year, String month, String day)  {
         validator.validateCurrency(base);
         validator.validateDate(year, month, day);
         return exchange.getHistoryExchangeRate(base, year, month, day);
@@ -62,7 +62,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
-    public CurrencyComparisonResponse getCompareDto(String base, String target1, String target2, String amount) throws CustomException {
+    public CurrencyComparisonResponse getCompareDto(String base, String target1, String target2, String amount)  {
         validator.validateAmount(amount);
         validator.validateCurrency(base, target1, target2);
 
@@ -72,7 +72,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
-    public CurrencyPreferencesResponse getRates(String base_code, List<String> targets) throws CustomException {
+    public CurrencyPreferencesResponse getRates(String base_code, List<String> targets) {
         // validate base and targets
         validator.validateCurrency(base_code);
         InputValidator inputValidator = validator;
