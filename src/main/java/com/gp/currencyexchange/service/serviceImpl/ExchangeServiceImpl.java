@@ -1,16 +1,18 @@
 package com.gp.currencyexchange.service.serviceImpl;
 
-import com.gp.currencyexchange.dto.*;
 import com.gp.currencyexchange.enums.Currencies;
-import com.gp.currencyexchange.exception.customize.CustomException;
 import com.gp.currencyexchange.feignClient.Exchange;
-import com.gp.currencyexchange.feignresponse.PairConversionResponse;
-import com.gp.currencyexchange.response.CurrenciesResponse;
-import com.gp.currencyexchange.response.CurrencyPreferencesResponse;
-import com.gp.currencyexchange.response.CurrencyConversionResponse;
-import com.gp.currencyexchange.response.CurrencyComparisonResponse;
+import com.gp.currencyexchange.mapper.CurrencyConversionMapper;
+import com.gp.currencyexchange.mapper.CurrenciesMapper;
+import com.gp.currencyexchange.web.response.CurrenciesResponse;
+import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;
+import com.gp.currencyexchange.web.response.CurrencyConversionResponse;
+import com.gp.currencyexchange.web.response.CurrencyComparisonResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import com.gp.currencyexchange.validators.InputValidator;
+import com.gp.currencyexchange.web.dto.CurrencyConversionDto;
+import com.gp.currencyexchange.web.dto.CurrencyDto;
+import com.gp.currencyexchange.web.dto.ImageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,11 +31,19 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Autowired
     private InputValidator validator;
 
+    @Autowired
+    private CurrencyConversionMapper currencyComparisonMapper;
+
+    @Autowired
+    private CurrenciesMapper currenciesMapper;
+
+
+
     @Cacheable(cacheNames = "CurrenciesExchange")
     public CurrenciesResponse getLatest(String base)  {
         //check if currency in enum or not
         validator.validateCurrency(base);
-        return exchange.getLatestExchangeRate(base);
+        return currenciesMapper.mapToResponse(exchange.getLatestExchangeRate(base));
     }
 
 
@@ -41,15 +51,17 @@ public class ExchangeServiceImpl implements ExchangeService {
     public CurrencyConversionResponse convert(String base, String target, String amount)  {
         validator.validateAmount(amount);
         validator.validateCurrency(base, target);
-        PairConversionResponse conversionData = exchange.getPairExchangeRate(base, target);
-        return new CurrencyConversionResponse(conversionData.getConversion_rate(), (Double.parseDouble(conversionData.getConversion_rate()) * Double.parseDouble(amount)) + "");
+        CurrencyConversionDto conversionData = currencyComparisonMapper.mapToDto(exchange.getPairExchangeRate(base, target));
+        String conversionRate = conversionData.getConversionRate();
+        String conversionValue = (Double.parseDouble(conversionData.getConversionRate()) * Double.parseDouble(amount)) + "";
+        return new CurrencyConversionResponse(conversionRate,conversionValue );
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
     public CurrenciesResponse getHistoricalExchangeRate(String base, String year, String month, String day)  {
         validator.validateCurrency(base);
         validator.validateDate(year, month, day);
-        return exchange.getHistoryExchangeRate(base, year, month, day);
+        return currenciesMapper.mapToResponse(exchange.getHistoryExchangeRate(base, year, month, day));
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
@@ -67,13 +79,14 @@ public class ExchangeServiceImpl implements ExchangeService {
         validator.validateCurrency(base, target1, target2);
 
         // get the latest conversion rate for all currencies then limit the result to include only target1 and target2
-        CurrenciesResponse latestCurrenciesValues = exchange.getLatestExchangeRate(base);
-        return new CurrencyComparisonResponse((Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target1)) * Double.parseDouble(amount)) + "", (Double.parseDouble(latestCurrenciesValues.getConversion_rates().get(target2)) * Double.parseDouble(amount) + ""));
+        CurrenciesResponse latestCurrenciesValues = currenciesMapper.mapToResponse(exchange.getLatestExchangeRate(base));
+        String firstConversionValue = (Double.parseDouble(latestCurrenciesValues.getConversionRates().get(target1)) * Double.parseDouble(amount)) + "";
+        String secondConversionValue = (Double.parseDouble(latestCurrenciesValues.getConversionRates().get(target2)) * Double.parseDouble(amount) + "");
+        return new CurrencyComparisonResponse(firstConversionValue, secondConversionValue);
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
     public CurrencyPreferencesResponse getRates(String base_code, List<String> targets) {
-        // validate base and targets
         validator.validateCurrency(base_code);
         InputValidator inputValidator = validator;
         for (String target : targets) {
@@ -81,9 +94,9 @@ public class ExchangeServiceImpl implements ExchangeService {
         }
 
         // get the latest conversion rate for all currencies then limit the result to include only required targets
-        CurrenciesResponse latestExchangeRates = exchange.getLatestExchangeRate(base_code);
+        CurrenciesResponse latestExchangeRates = currenciesMapper.mapToResponse(exchange.getLatestExchangeRate(base_code));
         List<CurrencyDto> list = new ArrayList<>();
-        targets.forEach(t -> list.add(new CurrencyDto(t, latestExchangeRates.getConversion_rates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
+        targets.forEach(t -> list.add(new CurrencyDto(t, latestExchangeRates.getConversionRates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
         return new CurrencyPreferencesResponse(base_code, list);
     }
 

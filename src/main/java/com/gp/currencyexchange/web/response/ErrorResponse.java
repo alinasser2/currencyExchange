@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.response;
+package com.gp.currencyexchange.web.response;
 import lombok.*;
 
 import java.io.Serializable;

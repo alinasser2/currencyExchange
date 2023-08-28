@@ -1,6 +1,6 @@
-package com.gp.currencyexchange.response;
+package com.gp.currencyexchange.web.response;
 
-import com.gp.currencyexchange.dto.CurrencyDto;
+import com.gp.currencyexchange.web.dto.CurrencyDto;
 import lombok.*;
 
 import java.io.Serializable;
@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CurrencyPreferencesResponse implements Serializable {
-    private String base_currency;
+    private String baseCurrency;
     private List<CurrencyDto> targets;
 }

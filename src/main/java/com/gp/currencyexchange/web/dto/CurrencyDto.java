@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.dto;
+package com.gp.currencyexchange.web.dto;
 
 import lombok.*;
 
@@ -12,6 +12,6 @@ import java.io.Serializable;
 public class CurrencyDto implements Serializable
 {
     private String currency;
-    private String exchange_rate;
+    private String exchangeRate;
     private String flag;
 }

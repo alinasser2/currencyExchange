@@ -1,8 +1,8 @@
 package com.gp.currencyexchange;
 
 
-import com.gp.currencyexchange.controller.CurrencyExchangeController;
-import com.gp.currencyexchange.response.CurrencyPreferencesResponse;
+import com.gp.currencyexchange.web.controller.CurrencyExchangeController;
+import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

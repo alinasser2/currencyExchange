@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class PairConversionResponse implements Serializable {
+public class CurrencyConversionFeignResponse implements Serializable {
     private String base_code;
     private String target_code;
     private String conversion_rate;

@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.response;
+package com.gp.currencyexchange.web.response;
 
 
 import lombok.*;
@@ -14,6 +14,6 @@ public class CurrencyConversionResponse implements Serializable {
 //    private String base_code;
 //    private String target_code;
 //    private String amount;
-    private String conversion_rate;
-    private String conversion_value;
+    private String conversionRate;
+    private String conversionValue;
 }

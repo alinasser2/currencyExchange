@@ -1,7 +1,7 @@
 package com.gp.currencyexchange.exception;
 
 import com.gp.currencyexchange.exception.customize.CustomException;
-import com.gp.currencyexchange.response.ErrorResponse;
+import com.gp.currencyexchange.web.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

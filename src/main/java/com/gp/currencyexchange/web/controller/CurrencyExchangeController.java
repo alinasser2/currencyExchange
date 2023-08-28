@@ -1,11 +1,11 @@
-package com.gp.currencyexchange.controller;
+package com.gp.currencyexchange.web.controller;
 
-import com.gp.currencyexchange.dto.ImageDto;
+import com.gp.currencyexchange.web.dto.ImageDto;
 import com.gp.currencyexchange.exception.customize.CustomException;
-import com.gp.currencyexchange.response.CurrenciesResponse;
-import com.gp.currencyexchange.response.CurrencyPreferencesResponse;
-import com.gp.currencyexchange.response.CurrencyConversionResponse;
-import com.gp.currencyexchange.response.CurrencyComparisonResponse;
+import com.gp.currencyexchange.web.response.CurrenciesResponse;
+import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;
+import com.gp.currencyexchange.web.response.CurrencyConversionResponse;
+import com.gp.currencyexchange.web.response.CurrencyComparisonResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
