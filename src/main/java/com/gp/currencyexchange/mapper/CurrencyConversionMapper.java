@@ -1,6 +1,6 @@
 package com.gp.currencyexchange.mapper;
 
-import com.gp.currencyexchange.web.dto.CurrencyConversionDto;
+import com.gp.currencyexchange.dto.CurrencyConversionDto;
 import com.gp.currencyexchange.feignresponse.CurrencyConversionFeignResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,6 +1,6 @@
 package com.gp.currencyexchange.web.controller;
 
-import com.gp.currencyexchange.web.dto.ImageDto;
+import com.gp.currencyexchange.dto.ImageDto;
 import com.gp.currencyexchange.exception.customize.CustomException;
 import com.gp.currencyexchange.web.response.CurrenciesResponse;
 import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;

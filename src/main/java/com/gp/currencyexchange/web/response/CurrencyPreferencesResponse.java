@@ -1,6 +1,6 @@
 package com.gp.currencyexchange.web.response;
 
-import com.gp.currencyexchange.web.dto.CurrencyDto;
+import com.gp.currencyexchange.dto.CurrencyDto;
 import lombok.*;
 
 import java.io.Serializable;

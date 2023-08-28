@@ -1,6 +1,6 @@
 package com.gp.currencyexchange.service;
 
-import com.gp.currencyexchange.web.dto.ImageDto;
+import com.gp.currencyexchange.dto.ImageDto;
 import com.gp.currencyexchange.exception.customize.CustomException;
 import com.gp.currencyexchange.web.response.CurrenciesResponse;
 import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;
@@ -23,5 +23,5 @@ public interface ExchangeService {
 
     CurrencyPreferencesResponse getRates(String base_code, List<String> targets) throws CustomException;
 
-    public String clearCache();
+    public void clearCache();
 }

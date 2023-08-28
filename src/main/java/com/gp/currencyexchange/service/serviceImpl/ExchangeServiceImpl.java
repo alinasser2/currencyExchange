@@ -10,12 +10,15 @@ import com.gp.currencyexchange.web.response.CurrencyConversionResponse;
 import com.gp.currencyexchange.web.response.CurrencyComparisonResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import com.gp.currencyexchange.validators.InputValidator;
-import com.gp.currencyexchange.web.dto.CurrencyConversionDto;
-import com.gp.currencyexchange.web.dto.CurrencyDto;
-import com.gp.currencyexchange.web.dto.ImageDto;
+import com.gp.currencyexchange.dto.CurrencyConversionDto;
+import com.gp.currencyexchange.dto.CurrencyDto;
+import com.gp.currencyexchange.dto.ImageDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,6 +39,8 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     @Autowired
     private CurrenciesMapper currenciesMapper;
+
+    private final Logger log = LoggerFactory.getLogger(ExchangeServiceImpl.class);
 
 
 
@@ -100,9 +105,10 @@ public class ExchangeServiceImpl implements ExchangeService {
         return new CurrencyPreferencesResponse(base_code, list);
     }
 
+    @Scheduled(cron = "0 0 * * * *")
     @CacheEvict(cacheNames = "CurrenciesExchange", allEntries = true)
-    public String clearCache() {
-        return "Cache cleared";
+    public void clearCache() {
+        log.info("Cache cleared.");
     }
 
 

@@ -1,4 +1,4 @@
-package com.gp.currencyexchange.web.dto;
+package com.gp.currencyexchange.dto;
 
 import lombok.*;
 
