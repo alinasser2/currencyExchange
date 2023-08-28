@@ -1,9 +1,8 @@
 package com.gp.currencyexchange;
 
 
-import com.gp.currencyexchange.web.controller.CurrencyExchangeController;
-import com.gp.currencyexchange.web.response.CurrencyPreferencesResponse;
 import com.gp.currencyexchange.service.ExchangeService;
+import com.gp.currencyexchange.web.controller.CurrencyExchangeController;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,11 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
