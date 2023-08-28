@@ -23,7 +23,6 @@ public class CurrencyExchangeController {
 
     @GetMapping("/latest/{base}")
     public ResponseEntity<CurrenciesResponse> getLatestExchangeRates(@PathVariable String base) throws CustomException {
-//        return ResponseEntity.ok(exchangeService.getLatest(base));
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getLatest(base));
     }
 
@@ -42,14 +41,14 @@ public class CurrencyExchangeController {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getImageDtos());
     }
 
-    @GetMapping("/compare/{base}/{first_target}/{second_target}/{amount}")
-    ResponseEntity<CurrencyComparisonResponse> compareTwoCurrencies(@PathVariable String base, @PathVariable String first_target, @PathVariable String second_target, @PathVariable String amount) throws CustomException {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getCompareDto(base, first_target, second_target, amount));
+    @GetMapping("/compare/{base}/{firstTarget}/{secondTarget}/{amount}")
+    ResponseEntity<CurrencyComparisonResponse> compareTwoCurrencies(@PathVariable String base, @PathVariable String firstTarget, @PathVariable String secondTarget, @PathVariable String amount) throws CustomException {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getCompareDto(base, firstTarget, secondTarget, amount));
     }
 
     @GetMapping("/rates")
-    ResponseEntity<CurrencyPreferencesResponse> compareManyCurrencies(@RequestParam String base_code,@RequestParam List<String> targets) throws CustomException {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getRates(base_code, targets));
+    ResponseEntity<CurrencyPreferencesResponse> compareManyCurrencies(@RequestParam String baseCode,@RequestParam List<String> targets) throws CustomException {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getRates(baseCode, targets));
     }
 
 }

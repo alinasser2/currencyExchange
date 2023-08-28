@@ -111,5 +111,6 @@ public class ExchangeServiceImpl implements ExchangeService {
         log.info("Cache cleared.");
     }
 
-
+    // builder
+    // singlton
 }
