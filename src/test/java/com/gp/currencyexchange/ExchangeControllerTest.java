@@ -1,11 +1,7 @@
 package com.gp.currencyexchange;
 
 
-import com.gp.currencyexchange.service.ExchangeService;
-import com.gp.currencyexchange.web.controller.CurrencyExchangeController;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,11 +20,6 @@ public class ExchangeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Mock
-    private ExchangeService exchangeService;
-
-    @InjectMocks
-    private CurrencyExchangeController currencyController;
 
 
     @Test
