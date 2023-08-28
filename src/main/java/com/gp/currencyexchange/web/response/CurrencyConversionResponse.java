@@ -10,6 +10,7 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CurrencyConversionResponse implements Serializable {
 //    private String base_code;
 //    private String target_code;

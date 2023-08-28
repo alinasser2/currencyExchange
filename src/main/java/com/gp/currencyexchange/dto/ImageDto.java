@@ -10,6 +10,7 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ImageDto implements Serializable {
     private String currency;
     private String flag;

@@ -59,7 +59,8 @@ public class ExchangeServiceImpl implements ExchangeService {
         CurrencyConversionDto conversionData = currencyComparisonMapper.mapToDto(exchange.getPairExchangeRate(base, target));
         String conversionRate = conversionData.getConversionRate();
         String conversionValue = (Double.parseDouble(conversionData.getConversionRate()) * Double.parseDouble(amount)) + "";
-        return new CurrencyConversionResponse(conversionRate,conversionValue );
+        return CurrencyConversionResponse.builder().conversionRate(conversionRate).conversionValue(conversionValue).build();
+//        return new CurrencyConversionResponse(conversionRate,conversionValue );
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
@@ -72,9 +73,8 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Cacheable(cacheNames = "CurrenciesExchange")
     public List<ImageDto> getImageDtos() {
         List<ImageDto> result = new ArrayList<>();
-
         // for every currency return map consisting of (currency name : image link)
-        Stream.of(Currencies.values()).forEach(c -> result.add(new ImageDto(c.name(), "https://www.countryflagicons.com/FLAT/64/" + c.getCountry() + ".png")));
+        Stream.of(Currencies.values()).forEach(c -> result.add(ImageDto.builder().currency(c.name()).flag("https://www.countryflagicons.com/FLAT/64/" + c.getCountry() + ".png").build()));
         return result;
     }
 
@@ -87,7 +87,8 @@ public class ExchangeServiceImpl implements ExchangeService {
         CurrenciesResponse latestCurrenciesValues = currenciesMapper.mapToResponse(exchange.getLatestExchangeRate(base));
         String firstConversionValue = (Double.parseDouble(latestCurrenciesValues.getConversionRates().get(target1)) * Double.parseDouble(amount)) + "";
         String secondConversionValue = (Double.parseDouble(latestCurrenciesValues.getConversionRates().get(target2)) * Double.parseDouble(amount) + "");
-        return new CurrencyComparisonResponse(firstConversionValue, secondConversionValue);
+//        return new CurrencyComparisonResponse(firstConversionValue, secondConversionValue);
+        return CurrencyComparisonResponse.builder().firstConversionValue(firstConversionValue).secondConversionValue(secondConversionValue).build();
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")
@@ -101,8 +102,9 @@ public class ExchangeServiceImpl implements ExchangeService {
         // get the latest conversion rate for all currencies then limit the result to include only required targets
         CurrenciesResponse latestExchangeRates = currenciesMapper.mapToResponse(exchange.getLatestExchangeRate(base_code));
         List<CurrencyDto> list = new ArrayList<>();
+        // for every target construct list of objects consisting of (currency name : conversion rate)
         targets.forEach(t -> list.add(new CurrencyDto(t, latestExchangeRates.getConversionRates().get(t), "https://www.countryflagicons.com/FLAT/64/" + Currencies.valueOf(t).getCountry() + ".png")));
-        return new CurrencyPreferencesResponse(base_code, list);
+        return CurrencyPreferencesResponse.builder().baseCurrency(base_code).targets(list).build();
     }
 
     @Scheduled(cron = "0 0 * * * *")

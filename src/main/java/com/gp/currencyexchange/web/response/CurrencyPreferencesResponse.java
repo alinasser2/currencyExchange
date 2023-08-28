@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CurrencyPreferencesResponse implements Serializable {
     private String baseCurrency;
     private List<CurrencyDto> targets;
