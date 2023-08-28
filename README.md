@@ -26,97 +26,99 @@ The currency exchange application provides the following services:
  
 
  1. Get  Latest Conversion Rates of Specific Currency
- **Request** http://localhost:8080/latest/USD
+ **Request** https://currencyexchange-wbtr.onrender.com/latest/USD
  **Expected Response**
  ```
- {  
-    "base_code": "USD",  
-    "conversion_rates": {  
-        "AED": "3.67250000",  
-        "JPY": "146.27709233",  
-        "EUR": "0.92607963",  
-        "QAR": "3.64000000",  
-        "GBP": "0.79455927",  
-        "OMR": "0.38449700",  
-        "SAR": "3.75000000",  
-        "USD": "1",  
-        "KWD": "0.30827827",  
-        "BHD": "0.37600000",  
-        "EGP": "30.89990243"  
-    }
+{
+  "baseCode": "USD",
+  "conversionRates": {
+    "AED": "3.67250000",
+    "JPY": "146.48797082",
+    "EUR": "0.92552683",
+    "QAR": "3.64000000",
+    "GBP": "0.79453722",
+    "OMR": "0.38449700",
+    "SAR": "3.75000000",
+    "USD": "1",
+    "KWD": "0.30838425",
+    "BHD": "0.37600000",
+    "EGP": "30.83817498"
+  }
+}
 ```
 
- 2. Convert Between Two Currencies **USD** and **AED** And the Amount **$50**
-  **Request** http://localhost:8080/pair/USD/AED/50
+ 2. Convert Between Two Currencies **EGP** and **USD** And the Amount **100**
+  **Request** https://currencyexchange-wbtr.onrender.com/pair/EGP/USD/100
    **Expected Response**
    ```
-   {  
-    "conversion_rate": "3.67250000",  
-    "conversion_value": "183.625"  
+  {
+  "conversionRate": "0.03246204",
+  "conversionValue": "3.2462039999999996"
 }
 ```
 
  3. Get Latest Conversion Rates of Specific Currency **USD** in Specific Date **2023/8/28**
- **Request** http://localhost:8080/history/USD/2023/8/28
+ **Request** https://currencyexchange-wbtr.onrender.com/history/USD/2023/8/28
   **Expected Response**
   ```
-  {  
-    "base_code": "USD",  
-    "conversion_rates": {  
-        "AED": "3.67250000",  
-        "JPY": "146.37994974",  
-        "EUR": "0.92484085",  
-        "QAR": "3.64000000",  
-        "GBP": "0.79398132",  
-        "OMR": "0.38449700",  
-        "SAR": "3.75000000",  
-        "USD": "1",  
-        "KWD": "0.30837062",  
-        "BHD": "0.37600000",  
-        "EGP": "30.83964462"  
-    }
+{
+  "baseCode": "USD",
+  "conversionRates": {
+    "AED": "3.67250000",
+    "JPY": "146.48797082",
+    "EUR": "0.92552683",
+    "QAR": "3.64000000",
+    "GBP": "0.79453722",
+    "OMR": "0.38449700",
+    "SAR": "3.75000000",
+    "USD": "1",
+    "KWD": "0.30838425",
+    "BHD": "0.37600000",
+    "EGP": "30.83817498"
+  }
+}
    ```
    
 
  4. Compare the Conversion Values For a Specific Currency **USD** And Two Other Currencies  **AED**  and **EGP** with specific amount **$50**
- **Request** http://localhost:8080/compare/USD/AED/EGP/50
+ **Request** https://currencyexchange-wbtr.onrender.com/compare/USD/AED/EGP/50
  **Expected Response**
  ```
- {  
-    "first_Conversion_value": "183.625",  
-    "second_Conversion_value": "1541.982231"  
+{
+  "firstConversionValue": "183.625",
+  "secondConversionValue": "1541.9087490000002"
 }
 ```
 
  5. Get Latest Exchange Rates of Specific Currency **USD** With Many other Currencies  **AED**,**EUR**,**EGP**,**GBP**
 **Request**
-http://localhost:8080/rates?base_code=USD&targets=AED,EUR,EGP,GBP
+https://currencyexchange-wbtr.onrender.com/rates?baseCode=USD&targets=AED%2CEUR%2CEGP%2CGBP
 **Expected Response**
 ```
-{  
-    "base_currency": "USD",  
-    "targets": [  
-        {  
-            "currency": "AED",  
-            "exchange_rate": "3.67250000",  
-            "flag": "https://www.countryflagicons.com/FLAT/64/AE.png"  
-        },  
-        {  
-            "currency": "EUR",  
-            "exchange_rate": "0.92484085",  
-            "flag": "https://www.countryflagicons.com/FLAT/64/EU.png"  
-        },  
-        {  
-            "currency": "EGP",  
-            "exchange_rate": "30.83964462",  
-            "flag": "https://www.countryflagicons.com/FLAT/64/EG.png"  
-        },  
-        {  
-            "currency": "GBP",  
-            "exchange_rate": "0.79398132",  
-            "flag": "https://www.countryflagicons.com/FLAT/64/GB.png"  
-        }  
-    ]  
+{
+  "baseCurrency": "USD",
+  "targets": [
+    {
+      "currency": "AED",
+      "exchangeRate": "3.67250000",
+      "flag": "https://www.countryflagicons.com/FLAT/64/AE.png"
+    },
+    {
+      "currency": "EUR",
+      "exchangeRate": "0.92552683",
+      "flag": "https://www.countryflagicons.com/FLAT/64/EU.png"
+    },
+    {
+      "currency": "EGP",
+      "exchangeRate": "30.83817498",
+      "flag": "https://www.countryflagicons.com/FLAT/64/EG.png"
+    },
+    {
+      "currency": "GBP",
+      "exchangeRate": "0.79453722",
+      "flag": "https://www.countryflagicons.com/FLAT/64/GB.png"
+    }
+  ]
 }
 ```
 ## Features
@@ -129,6 +131,34 @@ Here's an overview of what we have accomplished:
 This ensures that our conversion and services provide accurate results based on current market rates.
  - **Error Handling**:
  We have incorporated error handling mechanisms throughout our codebase to gracefully handle any unexpected errors or exceptions that may occur during runtime.
+***Error 400 if the wrong currency was entered**
+**Request**  https://currencyexchange-wbtr.onrender.com/latest/USU
+**Expected Response**
+```      
+{
+  "statusCode": 400,
+  "message": "Invalid currency "
+}        
+```
+***Error 400 if negative or zero amount was entered** 
+**Request**  https://currencyexchange-wbtr.onrender.com/pair/EGP/USD/-100
+**Expected Response**
+```
+{
+  "statusCode": 400,
+  "message": "Amount must be positive number."
+}
+```
+***Error 400 if invalid date was entered** 
+**Request**  https://currencyexchange-wbtr.onrender.com/history/USD/2023/8/55
+**Expected Response**
+```
+{
+  "statusCode": 400,
+  "message": "Invalid date"
+}
+```
+   
  - **Testing**
  We have written comprehensive unit tests to ensure the correctness and reliability of our application.
 These tests cover various scenarios and edge cases to validate the behavior of our services.
@@ -145,7 +175,7 @@ which will make the app always up to date
 To get started with the currency exchange application, follow these steps:
 1. Clone this repository to your local machine.
 2. Install any necessary dependencies.
-3. Access the application through your web browser at `http://localhost:8080`.
+3. Access the application through your web browser at `https://currencyexchange-wbtr.onrender.com/swagger-ui/index.html`.
 
 
 ## Contributing
