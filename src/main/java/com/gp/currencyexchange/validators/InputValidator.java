@@ -5,6 +5,8 @@ import com.gp.currencyexchange.enums.ErrorResponse;
 import com.gp.currencyexchange.exception.customize.CustomException;
 import org.springframework.stereotype.Component;
 
+import static com.gp.currencyexchange.enums.Currencies.*;
+
 @Component
 public class InputValidator {
     public void validateDate(String year, String month, String day)  {
@@ -23,7 +25,7 @@ public class InputValidator {
 
     public void validateCurrency(String... currencies) {
         for (String currency : currencies) {
-            if (!Currencies.contains(currency)) {
+            if (!contains(currency)) {
                 throw new CustomException(ErrorResponse.INVALID_CURRENCY);
             }
         }

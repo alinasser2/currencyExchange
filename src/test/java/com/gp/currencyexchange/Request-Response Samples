@@ -1,0 +1,106 @@
+**Last Updated Rates 08/28/2023   11:19:14.46**
+
+*******Note********
+Make Sure To Run -CurrencyExchangeApplication.java- First**
+*******Note********
+****To Get Latest Conversion Rates of Specific Currency--USD--*****
+/***********    Request  ********************\
+----------http://localhost:8080/latest/USD----------------------
+
+/***********Expected Response:****************\
+{
+    "base_code": "USD",
+    "conversion_rates": {
+        "AED": "3.67250000",
+        "JPY": "146.27709233",
+        "EUR": "0.92607963",
+        "QAR": "3.64000000",
+        "GBP": "0.79455927",
+        "OMR": "0.38449700",
+        "SAR": "3.75000000",
+        "USD": "1",
+        "KWD": "0.30827827",
+        "BHD": "0.37600000",
+        "EGP": "30.89990243"
+    }
+}
+                      ------------------------------------------------------------------------
+
+
+****To Convert Between Two Currencies --USD-- and --AED-- And the Amount --$50--*****
+/***********    Request  ********************\
+----------http://localhost:8080/pair/USD/AED/50----------------------
+
+/***********Expected Response:****************\
+{
+    "conversion_rate": "3.67250000",
+    "conversion_value": "183.625"
+}
+                          -------------------------------------------------------------
+
+
+****To Get Latest Conversion Rates of Specific Currency--USD-- in Specific Date --2023/8/28--****
+/***********    Request  ********************\
+----------http://localhost:8080/history/USD/2023/8/28-----------------
+
+/***********Expected Response:****************\
+{
+    "base_code": "USD",
+    "conversion_rates": {
+        "AED": "3.67250000",
+        "JPY": "146.37994974",
+        "EUR": "0.92484085",
+        "QAR": "3.64000000",
+        "GBP": "0.79398132",
+        "OMR": "0.38449700",
+        "SAR": "3.75000000",
+        "USD": "1",
+        "KWD": "0.30837062",
+        "BHD": "0.37600000",
+        "EGP": "30.83964462"
+    }
+                       ------------------------------------------------------------------------------
+
+****To Compare the Conversion Values For a Specific Currency--USD-- And Two Other Currencies --AED-- and --EGP-- with specific amount --$50-- ****
+/***********    Request  ********************\
+----------http://localhost:8080/compare/USD/AED/EGP/50----------------------
+
+/***********Expected Response:****************\
+{
+    "first_Conversion_value": "183.625",
+    "second_Conversion_value": "1541.982231"
+}
+                        --------------------------------------------------------------------------
+
+
+****To Get Latest Exchange Rates of Specific Currency--USD-- With Many other Currencies --AED,EUR,EGP.GBP--*****
+/***********    Request  ********************\
+----------http://localhost:8080/rates?base_code=USD&targets=AED,EUR,EGP,GBP----------------------
+
+/***********Expected Response:****************\
+{
+    "base_currency": "USD",
+    "targets": [
+        {
+            "currency": "AED",
+            "exchange_rate": "3.67250000",
+            "flag": "https://www.countryflagicons.com/FLAT/64/AE.png"
+        },
+        {
+            "currency": "EUR",
+            "exchange_rate": "0.92484085",
+            "flag": "https://www.countryflagicons.com/FLAT/64/EU.png"
+        },
+        {
+            "currency": "EGP",
+            "exchange_rate": "30.83964462",
+            "flag": "https://www.countryflagicons.com/FLAT/64/EG.png"
+        },
+        {
+            "currency": "GBP",
+            "exchange_rate": "0.79398132",
+            "flag": "https://www.countryflagicons.com/FLAT/64/GB.png"
+        }
+    ]
+}
+          -----------------------------------------------------------------------------------------------------
