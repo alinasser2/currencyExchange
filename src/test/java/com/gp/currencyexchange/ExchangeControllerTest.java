@@ -81,18 +81,11 @@ public class ExchangeControllerTest {
     @Test
     public void testCompareManyCurrencies() throws Exception {
 
-        when(exchangeService.getRates("USD", Arrays.asList("EUR", "GBP","AED")))
-                .thenReturn(new CurrencyPreferencesResponse(/* Mocked response object */));
-
-
-        mockMvc = MockMvcBuilders.standaloneSetup(currencyController).build();
-
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/rates")
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/rates")
                         .param("base_code", "USD")
                         .param("targets", "EUR", "GBP","AED")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk());
+                .andDo(MockMvcResultHandlers.print());
+              resultActions.andExpect(status().isOk());
 
     }}
