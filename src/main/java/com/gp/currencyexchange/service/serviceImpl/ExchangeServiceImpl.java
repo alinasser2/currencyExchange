@@ -10,7 +10,6 @@ import com.gp.currencyexchange.web.response.CurrencyConversionResponse;
 import com.gp.currencyexchange.web.response.CurrencyComparisonResponse;
 import com.gp.currencyexchange.service.ExchangeService;
 import com.gp.currencyexchange.validators.InputValidator;
-import com.gp.currencyexchange.dto.CurrencyConversionDto;
 import com.gp.currencyexchange.dto.CurrencyDto;
 import com.gp.currencyexchange.dto.ImageDto;
 import org.slf4j.Logger;
@@ -56,11 +55,9 @@ public class ExchangeServiceImpl implements ExchangeService {
     public CurrencyConversionResponse convert(String base, String target, String amount)  {
         validator.validateAmount(amount);
         validator.validateCurrency(base, target);
-        CurrencyConversionDto conversionData = currencyComparisonMapper.mapToDto(exchange.getPairExchangeRate(base, target));
-        String conversionRate = conversionData.getConversionRate();
-        String conversionValue = (Double.parseDouble(conversionData.getConversionRate()) * Double.parseDouble(amount)) + "";
-        return CurrencyConversionResponse.builder().conversionRate(conversionRate).conversionValue(conversionValue).build();
-//        return new CurrencyConversionResponse(conversionRate,conversionValue );
+        CurrencyConversionResponse conversionData = currencyComparisonMapper.mapToResponse(exchange.getPairExchangeRate(base, target));
+        conversionData.setConversionValue(Double.parseDouble(conversionData.getConversionRate()) * Double.parseDouble(amount) + "");
+        return conversionData;
     }
 
     @Cacheable(cacheNames = "CurrenciesExchange")

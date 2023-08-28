@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface CurrenciesMapper {
 
-    @Mapping(source = "baseCode", target = "base_code")
-    @Mapping(source = "conversionRates", target = "conversion_rates")
-    CurrenciesFeignResponse mapToFeignResponse(CurrenciesResponse currenciesResponse);
-
     @Mapping(source = "base_code", target = "baseCode")
     @Mapping(source = "conversion_rates", target = "conversionRates")
     CurrenciesResponse mapToResponse(CurrenciesFeignResponse feignResponse);
