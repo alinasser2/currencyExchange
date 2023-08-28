@@ -56,10 +56,10 @@ public class ExchangeControllerTest {
     @Test
     public void testCompareTwoCurrencies() throws Exception {
         String base = "USD";
-        String first_target = "EUR";
-        String second_target = "AED";
+        String firstTarget = "EUR";
+        String secondTarget = "AED";
         String amount ="50";
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/compare/{base}/{first_target}/{second_target}/{amount}",base,first_target,second_target,amount))
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/compare/{base}/{first_target}/{second_target}/{amount}",base,firstTarget,secondTarget,amount))
                 .andDo(MockMvcResultHandlers.print());
         resultActions.andExpect(status().isOk());
 
