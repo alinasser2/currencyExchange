@@ -22,17 +22,17 @@ public class CurrencyExchangeController {
     private ExchangeService exchangeService;
 
     @GetMapping("/latest/{base}")
-    public ResponseEntity<CurrenciesResponse> getLatestExchangeRates(@PathVariable String base) throws CustomException {
+    public ResponseEntity<CurrenciesResponse> getLatestExchangeRates(@PathVariable String base) {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getLatest(base));
     }
 
     @GetMapping("/pair/{base}/{target}/{amount}")
-    public ResponseEntity<CurrencyConversionResponse> convertCurrency(@PathVariable String base, @PathVariable String target, @PathVariable String amount) throws CustomException {
+    public ResponseEntity<CurrencyConversionResponse> convertCurrency(@PathVariable String base, @PathVariable String target, @PathVariable String amount) {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.convert(base, target, amount));
     }
 
     @GetMapping("/history/{base}/{year}/{month}/{day}")
-    public ResponseEntity<CurrenciesResponse> getHistoricalExchangeRates(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day) throws CustomException {
+    public ResponseEntity<CurrenciesResponse> getHistoricalExchangeRates(@PathVariable String base, @PathVariable String year, @PathVariable String month, @PathVariable String day) {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getHistoricalExchangeRate(base, year, month, day));
     }
 
@@ -42,12 +42,12 @@ public class CurrencyExchangeController {
     }
 
     @GetMapping("/compare/{base}/{firstTarget}/{secondTarget}/{amount}")
-    ResponseEntity<CurrencyComparisonResponse> compareTwoCurrencies(@PathVariable String base, @PathVariable String firstTarget, @PathVariable String secondTarget, @PathVariable String amount) throws CustomException {
+    ResponseEntity<CurrencyComparisonResponse> compareTwoCurrencies(@PathVariable String base, @PathVariable String firstTarget, @PathVariable String secondTarget, @PathVariable String amount) {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getCompareDto(base, firstTarget, secondTarget, amount));
     }
 
     @GetMapping("/rates")
-    ResponseEntity<CurrencyPreferencesResponse> compareManyCurrencies(@RequestParam String baseCode,@RequestParam List<String> targets) throws CustomException {
+    ResponseEntity<CurrencyPreferencesResponse> compareManyCurrencies(@RequestParam String baseCode,@RequestParam List<String> targets) {
         return ResponseEntity.status(HttpStatus.OK.value()).body(exchangeService.getRates(baseCode, targets));
     }
 
