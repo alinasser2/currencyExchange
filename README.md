@@ -4,6 +4,8 @@
 The application allows users to convert between different currencies using real-time exchange rates, allow users to mark specific currencies as their favorites for quick
 access.***
 
+For a demonstration of the swagger documentation, you can access it [here](https://currencyexchange-wbtr.onrender.com/swagger-ui/index.html).
+
 
 # Services
 The currency exchange application provides the following services:
