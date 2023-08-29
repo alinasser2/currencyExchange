@@ -170,6 +170,9 @@ It helps in debugging and monitoring the application.
  -**Caching**:
  special caching for application as first minute of every hour, it clears the old caching and makes a new caching,
 which will make the app always up to date
+-**API Documentation**:
+ We've integrated Swagger into our Spring Boot application to provide interactive API documentation.
+ This allows you to easily explore and understand the endpoints, request/response formats, and more.
 
 ## Getting Started
 To get started with the currency exchange application, follow these steps:
